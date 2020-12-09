@@ -1,0 +1,56 @@
+---
+title : Test 測試
+date : 5th September 2020
+bibliography: biblio.bib
+---
+​
+
+# Section 1 (leave two rows from document headers)
+​
+This is a strong affermation that needs a citation [see @Lecocq:2011, pp. 33-35; @Caurla:2013b, ch. 1].
+​
+@Lobianco:2016b [pp. 8] affirms something else.
+
+## Subsection 1.1
+​
+This should print a plot. Note that I am not showing the source code in the final PDF:
+
+$$
+x = x^2 \frac{1}{2}
+$$
+$a = \frac{2}{5}$
+$$
+\theta, \alpha, \kappa, \pi
+$$
+
+```julia
+using LinearAlgebra
+using Plots
+if true
+    t = 1
+    b = t + 1
+    y = b - 10
+end
+@time println(y)
+u = 10
+@time plot(rand(100), rand(100))
+```
+  
+
+  
+### 測試畫圖
+```julia
+x = range(-10, stop=10, length=200)
+y = Array{Float32, 1}(undef, 200)
+cnt = 1
+for temp in x
+    global cnt
+    y[cnt] = 2*temp*temp + 1
+    cnt += 1
+end
+@time plot(x, y)
+```
+
+
+
+
