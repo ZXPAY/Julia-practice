@@ -1,0 +1,128 @@
+---
+title : Newtom method practice
+date : 17th December 2020
+bibliography: biblio.bib
+---
+​
+Output the html file by using Weave
+```julia; eval = false
+using Weave
+weave("newton_method_equation.jmd", out_path = :pwd)
+```
+
+# Section 1 (Known the system(equation))
+
+### Newton method iteration
+$$
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+
+## Example 1
+Equation is below
+$$
+    f(x) = x^2 + 10 = 0
+$$
+
+Find the roots
+```julia
+# Float type
+function func(x::Float64)
+    return x^2 + 10
+end
+function der(x::Float64)
+    return 2x
+end
+function newton_iter(x:: Float64)
+    return x - func(x)/der(x)
+end
+# Complex float type
+function func(x::Complex{Float64})
+    return x^2 + 10
+end
+function der(x::Complex{Float64})
+    return 2x
+end
+function newton_iter(x:: Complex{Float64})
+    return x - func(x)/der(x)
+end
+```
+
+Start $x_0 = 1 + i$
+```julia
+start_pt = 1.0+1im
+for i=1:10
+    global temp
+    if i == 1
+        temp = newton_iter(start_pt)
+    end
+    temp = newton_iter(temp)
+    println(temp)
+end
+```
+
+---
+
+## Example 2
+Equation is below, answer = 3, -2
+$$
+    f(x) = x^2 - x - 6 = 0
+$$
+```julia
+# Float type
+function func(x::Float64)
+    return x^2 - x - 6 
+end
+function der(x::Float64)
+    return 2x - 1
+end
+function newton_iter(x:: Float64)
+    return x - func(x)/der(x)
+end
+# Complex float type
+function func(x::Complex{Float64})
+    return x^2 - x - 6 
+end
+function der(x::Complex{Float64})
+    return 2x - 1
+end
+function newton_iter(x:: Complex{Float64})
+    return x - func(x)/der(x)
+end
+```
+
+Start $x_0 = 50.0$
+```julia
+start_pt = 50.0
+for i=1:10
+    global temp
+    if i == 1
+        temp = newton_iter(start_pt)
+    end
+    temp = newton_iter(temp)
+    println(temp)
+end
+```
+
+Start $x_0 = -50.0$
+```julia
+start_pt = -50.0
+for i=1:10
+    global temp
+    if i == 1
+        temp = newton_iter(start_pt)
+    end
+    temp = newton_iter(temp)
+    println(temp)
+end
+```
+
+---
+
+# Section 2 (Unknown the system(equation))
+## Create the test points
+
+
+
+
+
+
