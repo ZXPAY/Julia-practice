@@ -1,0 +1,75 @@
+---
+title : GTK GUI practice
+date : 22th December 2020
+bibliography: biblio.bib
+---
+​  \
+Output the html file by using Weave
+```julia; eval = false
+using Weave
+weave("gui_practice.jmd", out_path = :pwd)
+```
+  \
+[GUI Gtk document] (https://juliagraphics.github.io/Gtk.jl/latest/)
+
+[Glade website] (https://glade.gnome.org)
+  \
+  \
+  \
+# Section 1 (Using Glade to create *.glade file)
+![alternative text](figure/glade_show.png)
+  \
+  \
+  \
+**Warning: Button, label ID可在裡面Glade file裡面找到**
+
+---
+
+# Section 2 (Coding in julia)
+## Coding
+```julia
+using Gtk, Gtk.ShortNames
+
+# Load the Glade file
+ui = Builder(filename = "practice_ui.glade")
+
+# load the ID "window1"
+win = ui["window1"]
+
+# global variable
+count1 = 0
+flag = false
+
+# implement the button callback function
+function button_clicked_callback(widget)
+    global count1
+    count1 += 1
+    println("button click $count1")
+    GAccessor.text(ui["label1"], "button click $count1")
+end
+function togglebutton_clicked_callback(widget)
+    global flag
+    flag ⊻= 1
+    println("toggle button click $flag")
+    GAccessor.text(ui["label1"], "toggle button click $flag")
+end
+
+# button callback function connect
+signal_connect(button_clicked_callback, ui["button1"], "clicked")
+signal_connect(togglebutton_clicked_callback, ui["togglebutton1"], "clicked")
+
+# Start the GUI
+showall(win)
+```
+
+---
+
+## Result
+**Button click**
+![alternative text](figure/button.png)
+  \
+  \
+  \
+**Togglebutton click**
+![alternative text](figure/togglebutton.png)
+  
